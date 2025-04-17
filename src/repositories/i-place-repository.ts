@@ -2,9 +2,9 @@ import { Place, UserPlace } from '@prisma/client'
 export interface CreatePlaceParams {
   name: string
   location: string
-  idea_userId: string
+  googlePlaceId: string
+  ideaUserId: string
   categoryId: string
-  userPlaces: string[]
 }
 export interface CreateUserPlaceParams {
   userId: string

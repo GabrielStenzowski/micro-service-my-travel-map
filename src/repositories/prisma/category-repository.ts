@@ -9,7 +9,7 @@ class PrismaCategoryRepository implements ICategoryRepository {
   async createCategory(data: createCategoryParams): Promise<Category> {
     const category = await prisma.category.create({
       data: {
-        name: data.name,
+        category_name: data.category_name,
       },
     })
 

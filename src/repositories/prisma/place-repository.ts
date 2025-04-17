@@ -2,7 +2,6 @@ import { Place, UserPlace } from '@prisma/client'
 import {
   CreatePlaceParams,
   CreateUserPlaceParams,
-  GetUserPlaceByNameParams,
   GetUserPlaceParams,
   IPlaceRepository,
   UpdateUserPlaceParams,
@@ -15,15 +14,9 @@ class PrismaPlaceRepository implements IPlaceRepository {
       data: {
         name: data.name,
         location: data.location,
-        user: { connect: { id: data.idea_userId } },
-        category: { connect: { id: data.categoryId } },
-        userPlaces: {
-          create: data.userPlaces.map((userId) => ({
-            user: { connect: { id: userId } },
-            visited: false,
-            active: true,
-          })),
-        },
+        googlePlaceId: data.googlePlaceId,
+        ideaUserId: data.ideaUserId,
+        categoryId: data.categoryId,
       },
     })
     return place

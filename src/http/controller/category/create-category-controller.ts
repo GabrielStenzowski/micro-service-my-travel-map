@@ -8,7 +8,7 @@ class CreateCategoryController {
     const createCategoryUseCase = makeCreateCategoryUseCase()
 
     const createCategoryBodySchema = z.object({
-      name: z.string(),
+      category_name: z.string(),
     })
 
     const data = createCategoryBodySchema.parse(request.body)
