@@ -7,6 +7,7 @@ export interface createCategoryParams {
 interface ICategoryRepository {
   createCategory(data: createCategoryParams): Promise<Category>
   getCategories(): Promise<Category[]>
+  getCategoryById(id: string): Promise<Category | null>
 }
 
 export { ICategoryRepository }

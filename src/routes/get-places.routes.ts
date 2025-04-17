@@ -1,7 +1,8 @@
 import { FastifyInstance } from 'fastify'
-import { GetPlacesController } from '../http/controller/place/get-places-controller'
+import { GetPlaceController } from '../http/controller/place/get-place-controller'
 
-const getPlacesController = new GetPlacesController()
+const getPlacesController = new GetPlaceController()
+
 export async function getPlacesRoutes(app: FastifyInstance) {
   app.get('/places', getPlacesController.handle)
 }
