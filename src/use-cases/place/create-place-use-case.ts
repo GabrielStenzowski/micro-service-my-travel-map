@@ -1,11 +1,8 @@
-import { IPlaceRepository } from '../../repositories/i-place-repository'
-interface CreatePlaceParams {
-  name: string
-  location: string
-  ideaUserId: string
-  categoryId: string
-  googlePlaceId: string
-}
+import {
+  CreatePlaceParams,
+  IPlaceRepository,
+} from '../../repositories/i-place-repository'
+
 class CreatePlaceUseCase {
   constructor(private placeRepository: IPlaceRepository) {
     this.placeRepository = placeRepository
