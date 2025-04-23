@@ -6,6 +6,7 @@ import { getCategoriesRoutes } from './routes/get-categories.routes'
 import { getPlacesRoutes } from './routes/get-places.routes'
 import { createUserPlaceRoutes } from './routes/create-user-place.routes'
 import { countExistPlaceRoutes } from './routes/count-exist-place.routes'
+import { getUserPlaceByStatusByIdRoutes } from './routes/get-user-places-by-status-by-id.routes'
 
 const app = fastify()
 // const app = fastify({ logger: true })
@@ -17,4 +18,5 @@ app.register(getCategoriesRoutes)
 app.register(getPlacesRoutes)
 app.register(createUserPlaceRoutes)
 app.register(countExistPlaceRoutes)
+app.register(getUserPlaceByStatusByIdRoutes)
 export { app }

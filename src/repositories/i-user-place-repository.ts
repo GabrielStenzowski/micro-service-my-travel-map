@@ -7,8 +7,15 @@ export interface CreateUserPlaceParams {
   active: boolean
 }
 
+export interface GetUserPlacesByStatusByIdParams {
+  userId: string
+  active: boolean
+}
 interface IUserPlaceRepository {
   createUserPlace(data: CreateUserPlaceParams): Promise<UserPlace>
+  getUserPlaceByUserIdAndStatus(
+    data: GetUserPlacesByStatusByIdParams
+  ): Promise<UserPlace[]>
 }
 
 export { IUserPlaceRepository }

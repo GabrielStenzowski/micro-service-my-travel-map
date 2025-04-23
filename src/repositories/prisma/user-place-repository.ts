@@ -1,6 +1,7 @@
 import { prisma } from '../../lib/prisma'
 import {
   CreateUserPlaceParams,
+  GetUserPlacesByStatusByIdParams,
   IUserPlaceRepository,
 } from '../i-user-place-repository'
 
@@ -16,6 +17,17 @@ class PrismaUserPlaceRepository implements IUserPlaceRepository {
     })
 
     return createUserPlace
+  }
+
+  async getUserPlaceByUserIdAndStatus(data: GetUserPlacesByStatusByIdParams) {
+    const activeUserPlace = await prisma.userPlace.findMany({
+      where: {
+        userId: data.userId,
+        active: data.active,
+      },
+    })
+
+    return activeUserPlace
   }
 }
 
