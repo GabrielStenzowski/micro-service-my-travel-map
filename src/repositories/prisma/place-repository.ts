@@ -20,6 +20,11 @@ class PrismaPlaceRepository implements IPlaceRepository {
     const places = await prisma.place.findMany()
     return places
   }
+
+  async countExistsPlaces() {
+    const places = await prisma.place.count()
+    return places
+  }
 }
 
 export { PrismaPlaceRepository }

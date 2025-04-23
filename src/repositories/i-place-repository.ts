@@ -10,6 +10,7 @@ export interface CreatePlaceParams {
 interface IPlaceRepository {
   createPlace(data: CreatePlaceParams): Promise<Place>
   getPlaces(): Promise<Place[]>
+  countExistsPlaces(): Promise<number>
 }
 
 export { IPlaceRepository }
