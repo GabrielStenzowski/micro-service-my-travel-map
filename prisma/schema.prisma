@@ -52,7 +52,7 @@ model VisitedPlaces {
   userId        String
   placeId       String
   opinion       String
-  wouldReturn   String
+  wouldReturn   Boolean
   averageRating Float
 
   ratingAmbiente    Int
