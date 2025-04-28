@@ -1,5 +1,7 @@
+import { UserPlace } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import {
+  CountUserPlaceByStatusParams,
   CreateUserPlaceParams,
   GetUserPlacesByStatusByIdParams,
   IUserPlaceRepository,
@@ -28,6 +30,17 @@ class PrismaUserPlaceRepository implements IUserPlaceRepository {
     })
 
     return activeUserPlace
+  }
+
+  async countUserPlacesByStatus(data: CountUserPlaceByStatusParams) {
+ 
+    const constUserPlacesByStatus = await prisma.userPlace.count({
+      where: {
+        userId: data.userId,
+        visited: data.visited,
+      },
+    })
+    return constUserPlacesByStatus
   }
 }
 
