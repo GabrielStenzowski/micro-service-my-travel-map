@@ -16,12 +16,18 @@ export interface CountUserPlaceByStatusParams {
   userId: string
   visited: boolean
 }
+
+export interface IAuthenticateUserParams {
+  email: string
+  password: string
+}
+
 interface IUserPlaceRepository {
   createUserPlace(data: CreateUserPlaceParams): Promise<UserPlace>
   getUserPlaceByUserIdAndStatus(
     data: GetUserPlacesByStatusByIdParams
   ): Promise<UserPlace[]>
-  countUserPlacesByStatus(data: CountUserPlaceByStatusParams): Promise<UserPlace[]>
+  countUserPlacesByStatus(data: CountUserPlaceByStatusParams): Promise<Number>
 }
 
 export { IUserPlaceRepository }
