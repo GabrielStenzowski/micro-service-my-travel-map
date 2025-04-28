@@ -1,12 +1,5 @@
 import { Place, UserPlace } from '@prisma/client'
-import {
-  CreatePlaceParams,
-  CreateUserPlaceParams,
-  GetUserPlaceByNameParams,
-  GetUserPlaceParams,
-  IPlaceRepository,
-  UpdateUserPlaceParams,
-} from '../i-place-repository'
+import { CreatePlaceParams, IPlaceRepository } from '../i-place-repository'
 import { prisma } from '../../lib/prisma'
 
 class PrismaPlaceRepository implements IPlaceRepository {
@@ -15,47 +8,12 @@ class PrismaPlaceRepository implements IPlaceRepository {
       data: {
         name: data.name,
         location: data.location,
-        user: { connect: { id: data.idea_userId } },
-        category: { connect: { id: data.categoryId } },
-        userPlaces: {
-          create: data.userPlaces.map((userId) => ({
-            user: { connect: { id: userId } },
-            visited: false,
-            active: true,
-          })),
-        },
+        googlePlaceId: data.googlePlaceId,
+        ideaUserId: data.ideaUserId,
+        categoryId: data.categoryId,
       },
     })
     return place
-  }
-
-  async createUserPlace(data: CreateUserPlaceParams): Promise<UserPlace> {
-    const userPlace = await prisma.userPlace.create({
-      data: {
-        user: { connect: { id: data.userId } },
-        place: { connect: { id: data.placeId } },
-        opinion: data.opinion,
-        visited: data.visited,
-        active: data.active,
-      },
-    })
-    return userPlace
-  }
-
-  async getUserPlaces(
-    data: GetUserPlaceParams
-  ): Promise<(UserPlace & { place: Place })[]> {
-    const userPlace = await prisma.userPlace.findMany({
-      where: {
-        userId: data.userId,
-        active: data.active,
-      },
-      include: {
-        place: true,
-      },
-    })
-
-    return userPlace
   }
 
   async getPlaces() {
@@ -63,21 +21,9 @@ class PrismaPlaceRepository implements IPlaceRepository {
     return places
   }
 
-  async updateUserPlace(data: UpdateUserPlaceParams): Promise<UserPlace> {
-    const userPlace = await prisma.userPlace.update({
-      data: {
-        visited: data.visited,
-        opinion: data.opinion,
-      },
-      where: {
-        userId_placeId: {
-          userId: data.userId,
-          placeId: data.placeId,
-        },
-      },
-    })
-
-    return userPlace
+  async countExistsPlaces() {
+    const places = await prisma.place.count()
+    return places
   }
 }
 

@@ -9,9 +9,9 @@ class CreatePlaceController {
     const createPlaceBodySchema = z.object({
       name: z.string(),
       location: z.string(),
-      idea_userId: z.string(),
+      googlePlaceId: z.string(),
+      ideaUserId: z.string(),
       categoryId: z.string(),
-      userPlaces: z.array(z.string()),
     })
 
     const data = createPlaceBodySchema.parse(request.body)

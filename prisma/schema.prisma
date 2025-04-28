@@ -15,18 +15,24 @@ model User {
   created_at    DateTime    @default(now())
 
   userPlaces    UserPlace[]
-  places        Place[] 
+  places        Place[]     @relation("IdeaUserPlaces")
+
+  MyVisitedPlace VisitedPlaces[]
 }
 
 model Place {
-    id         String    @id @default(uuid()) 
-    name       String
-    location   String
-    idea_userId     String     //Pessoa que cadastrou o lugar
-    user       User      @relation(fields: [idea_userId], references: [id]) 
-    categoryId String
-    category   Category  @relation(fields: [categoryId], references: [id], name: "CategoryToPlace")
-    userPlaces UserPlace[]
+  id         String    @id @default(uuid()) 
+  name          String
+  location      String
+  googlePlaceId String
+  ideaUserId    String
+  categoryId    String
+
+  category      Category    @relation(fields: [categoryId], references: [id], name: "CategoryToPlace")
+  user          User        @relation(fields: [ideaUserId], references: [id], name: "IdeaUserPlaces")
+  userPlaces    UserPlace[]
+
+  MyVisitedPlace VisitedPlaces[]
 }
 
 
@@ -34,17 +40,35 @@ model UserPlace {
   userId     String
   placeId    String
   visited    Boolean
-  opinion    String?
-  active     Boolean  // Indica se o lugar é "ativo" para o usuário (se ele deseja ir lá ou já foi)
+  active     Boolean  
   user       User     @relation(fields: [userId], references: [id])
   place      Place    @relation(fields: [placeId], references: [id])
 
-  @@id([userId, placeId]) // Chave composta para garantir que a relação seja única
+  @@id([userId, placeId]) 
+}
+
+model VisitedPlaces {
+  id            String   @id @default(uuid())
+  userId        String
+  placeId       String
+  opinion       String
+  wouldReturn   Boolean
+  averageRating Float
+
+  ratingAmbiente    Int
+  ratingAtendimento Int
+  ratingComida      Int
+  ratingPreco       Int
+
+  user  User  @relation(fields: [userId], references: [id])
+  place Place @relation(fields: [placeId], references: [id])
 }
 
 model Category {
-    id     String   @id @default(uuid())
-    name   String   @unique
-    places Place[] @relation("CategoryToPlace")
+  id            String   @id @default(uuid())
+  category_name String   @unique
+
+  places        Place[]  @relation("CategoryToPlace")
 }
+
 

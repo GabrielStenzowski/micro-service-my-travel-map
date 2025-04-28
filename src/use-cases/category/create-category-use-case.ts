@@ -2,7 +2,7 @@ import { Category } from '@prisma/client'
 import { ICategoryRepository } from '../../repositories/i-category-repository'
 
 interface createCategoryParams {
-  name: string
+  category_name: string
 }
 
 class CreateCategoryUseCase {
@@ -10,13 +10,13 @@ class CreateCategoryUseCase {
     this.categoryRepository = categoryRepository
   }
 
-  async execute({ name }: createCategoryParams): Promise<Category> {
+  async execute({ category_name }: createCategoryParams): Promise<Category> {
     console.log('Creating category:', {
-      name,
+      category_name,
     })
 
     const categoryCreated = await this.categoryRepository.createCategory({
-      name,
+      category_name,
     })
 
     return categoryCreated

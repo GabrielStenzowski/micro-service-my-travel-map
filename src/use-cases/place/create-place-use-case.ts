@@ -1,11 +1,8 @@
-import { IPlaceRepository } from '../../repositories/i-place-repository'
-interface CreatePlaceParams {
-  name: string
-  location: string
-  idea_userId: string
-  categoryId: string
-  userPlaces: string[]
-}
+import {
+  CreatePlaceParams,
+  IPlaceRepository,
+} from '../../repositories/i-place-repository'
+
 class CreatePlaceUseCase {
   constructor(private placeRepository: IPlaceRepository) {
     this.placeRepository = placeRepository
@@ -13,23 +10,23 @@ class CreatePlaceUseCase {
   async execute({
     name,
     location,
-    idea_userId,
+    ideaUserId,
     categoryId,
-    userPlaces,
+    googlePlaceId,
   }: CreatePlaceParams) {
     console.log('Creating place:', {
       name,
       location,
-      idea_userId,
+      ideaUserId,
       categoryId,
-      userPlaces,
+      googlePlaceId,
     })
     const placeCreated = await this.placeRepository.createPlace({
       name,
       location,
-      idea_userId,
+      ideaUserId,
       categoryId,
-      userPlaces,
+      googlePlaceId,
     })
     return placeCreated
   }
