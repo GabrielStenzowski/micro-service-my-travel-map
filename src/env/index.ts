@@ -4,6 +4,8 @@ import { z } from 'zod'
 const envSchema = z.object({
   PORT: z.coerce.number().default(3010),
   JWT_SECRET: z.string(),
+  ERROR_USER_HAS_NOT_EXIST: z.string(),
+  ERROR_MAIL_OR_PASSWORD_INVALID: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
